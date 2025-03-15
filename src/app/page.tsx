@@ -1,101 +1,92 @@
-import Image from "next/image";
+"use client";
+import { ConnectWallet } from "@/components/ConnectWallet";
+import { useState } from "react";
+
+const ALLOWLIST = [
+  "0xC01Fb4f6B41F33c4f6A096B061c5e1E9ad810Bd1",
+];
+
+const normalizedAllowlist = ALLOWLIST.map((address) => address.trim().toLowerCase());
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const [walletAddress, setWalletAddress] = useState("");
+  const [message, setMessage] = useState("");
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
+  const handleCheckEligibility = () => {
+    // Normaliza o endereço digitado para minúsculas
+    const normalizedAddress = walletAddress.trim().toLowerCase();
+
+    if (normalizedAllowlist.includes(normalizedAddress)) {
+      setMessage("Nice, we're Sweet Frens!");
+    } else {
+      setMessage("Oops! Claim your allowlist on Discord.");
+    }
+  };
+
+  return (
+    <div className="relative min-h-screen bg-[url('/bg.png')] bg-cover bg-center p-4">
+      {/* Barra de navegação */}
+      <nav className="flex justify-between mb-8">
+        <img src="/logo.png" alt="logo" className="w-28 h-28 rounded-full" />
+        <ConnectWallet />
+      </nav>
+
+      {/* Conteúdo central (card) */}
+      <div className="flex items-center justify-center min-h-[80vh]">
+        <div className="bg-white bg-opacity-90 rounded-lg max-w-lg w-full text-center shadow-md">
+          <div className="bg-[#EDEAFD] py-4 px-8 border-b-2 border-[#B794F2]">
+            <h1 className="text-2xl font-bold mb-4 text-[#B794F2]">
+              Check Your Eligibility
+            </h1>
+            <p className="text-[#B794F2] mb-6">
+              Enter your wallet address to check if you're eligible
+            </p>
+          </div>
+          <div className="p-8">
+            <input
+              type="text"
+              placeholder="Enter wallet address (0x...)"
+              value={walletAddress}
+              onChange={(e) => setWalletAddress(e.target.value)}
+              className="w-full p-2 text-gray-700 border border-gray-300 rounded-md mb-4"
             />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+
+            <button
+              onClick={handleCheckEligibility}
+              className="w-full py-2 px-4 bg-[#B794F2] text-white rounded-md font-bold hover:bg-purple-700 transition-colors"
+            >
+              Check Eligibility
+            </button>
+
+            {/* Div para exibir a mensagem */}
+            {message && (
+              <div className="mt-4 p-4 bg-gray-100 border border-gray-300 rounded-md text-gray-800">
+                {message}
+              </div>
+            )}
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
+      </div>
+
+      {/* Footer fixo no canto inferior direito */}
+      <footer className="fixed bottom-4 right-4 flex space-x-3">
+        {/* Ícone do Twitter */}
         <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
+          href="https://x.com/sweetfeetnfts"
+          className="bg-[#EFE2C2] w-10 h-10 rounded-full flex items-center justify-center hover:opacity-80 transition-opacity"
+          aria-label="Twitter"
           target="_blank"
-          rel="noopener noreferrer"
         >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
+          <img src="/twitter-icon.png" alt="Twitter" className="w-5 h-5" />
         </a>
+
+        {/* Ícone do Discord */}
         <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+          href="#"
+          className="bg-[#EFE2C2] w-10 h-10 rounded-full flex items-center justify-center hover:opacity-80 transition-opacity"
+          aria-label="Discord"
         >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
+          <img src="/discord-icon.png" alt="Discord" className="w-5 h-5" />
         </a>
       </footer>
     </div>
