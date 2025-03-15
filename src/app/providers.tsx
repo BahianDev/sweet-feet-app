@@ -2,7 +2,6 @@
 
 import React from "react";
 import "@rainbow-me/rainbowkit/styles.css";
-import localFont from "next/font/local";
 
 import { getDefaultConfig, RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import { WagmiProvider } from "wagmi";

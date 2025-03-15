@@ -27,7 +27,7 @@ export default function Home() {
     <div className="relative min-h-screen bg-[url('/bg.png')] bg-cover bg-center p-4">
       {/* Barra de navegação */}
       <nav className="flex justify-between mb-8">
-        <img src="/logo.png" alt="logo" className="w-28 h-28 rounded-full" />
+        <img src="/logo.png" alt="logo" className="w-16 h-16 md:w-28 md:h-28 rounded-full" />
         <ConnectWallet />
       </nav>
 
@@ -39,7 +39,7 @@ export default function Home() {
               Check Your Eligibility
             </h1>
             <p className="text-[#B794F2] mb-6">
-              Enter your wallet address to check if you're eligible
+              Enter your wallet address to check if you&lsquo;re eligible
             </p>
           </div>
           <div className="p-8">
