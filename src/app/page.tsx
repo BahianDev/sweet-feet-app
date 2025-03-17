@@ -17,9 +17,9 @@ export default function Home() {
     const normalizedAddress = walletAddress.trim().toLowerCase();
 
     if (normalizedAllowlist.includes(normalizedAddress)) {
-      setMessage("Nice, we're Sweet Frens!");
+      setMessage("Sweet, you're in!");
     } else {
-      setMessage("Oops! Claim your allowlist on Discord.");
+      setMessage("You're out of sugar! Get some on our Discord.");
     }
   };
 
